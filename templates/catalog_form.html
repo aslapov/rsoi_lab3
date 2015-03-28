@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bikes catalog</title>
+    <form action=/catalog method="POST">
+        {% for bike in bikes %}
+        <ul>
+            <li>
+                {{bike.firm}}
+                <br>
+                {{bike.model}}
+                <br>
+                {{bike.color}}
+                <br>
+                {{bike.cost|string}}
+                <br>
+                {{bike.description}}
+            </li>
+        </ul>
+        {% endfor %}
+        <br>
+        Page: {{page}}
+        <br>
+        <input type="submit" value="Prev" name="prev">
+        <input type="submit" value="Next" name="next">
+    </form>
+</head>
+<body>
+
+</body>
+</html>

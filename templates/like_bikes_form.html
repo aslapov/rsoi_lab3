@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Like bikes</title>
+    {% for bike in bikes %}
+    <ul>
+        <li>
+            {{bike.firm}}
+            <br>
+            {{bike.model}}
+            <br>
+            {{bike.description}}
+        </li>
+
+    </ul>
+    {% endfor %}
+</head>
+<body>
+
+</body>
+</html>

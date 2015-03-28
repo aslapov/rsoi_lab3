@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My bikes</title>
+    {% for bike in bikes %}
+    <ul>
+        <li>
+            {{bike.firm}}
+            <br>
+            {{bike.model}}
+            <br>
+            {{bike.color}}
+            <br>
+            {{bike.cost|string}}
+            <br>
+            {{bike.description}}
+        </li>
+    </ul>
+    {% endfor %}
+</head>
+<body>
+
+</body>
+</html>
