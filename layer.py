@@ -179,6 +179,27 @@ def get_user_info():
         return json.dumps({'error': str(e)})
 
 
+@app.route("/get_user_by_id")
+def get_user_by_id():
+    try:
+        if not check_arguments(['login', 'code', '_id'], request.args):
+            raise Exception("Bad arguments")
+        
+        login = request.args.get('login')
+        code = request.args.get('code')
+
+        if check_connection(login, code):
+            _id = request.args.get('_id')
+            url = get_users_url("user/{0}".format(_id))
+            result= requests.get(url)
+            return result.text
+        
+        raise Exception("Access denied")
+        
+    except Exception as e:
+        return json.dumps({'error': str(e)})
+
+
 @app.route("/update_user_info", methods=['PUT'])
 def update_user_info():
     try:

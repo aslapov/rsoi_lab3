@@ -167,23 +167,31 @@ def bikes():
     return render_template("bikes_form.html")
 
 
-@app.route("/show_bikes", methods=['POST'])
+@app.route("/show_bikes", methods=['GET', 'POST'])
 def show_bikes():
     login, code = get_data_from_cookies()
-    if 'like' in request.form:
+
+    _id = request.args.get('_id')
+    url = get_layer_url("get_user_by_id") + "?login={0}&code={1}&_id={2}".format(login, code, _id)
+    result = requests.get(url).json()
+    if 'error' in result:
+        return result['error']
+    user = result
+    
+    if request.args.get('like'):
         url = get_layer_url("like_bikes?login={0}&code={1}&id={2}".
-                            format(login, code, request.form['_id']))
+                            format(login, code, _id))
         template = "like_bikes_form.html"
     else:
         url = get_layer_url("my_bikes?login={0}&code={1}&id={2}".
-                            format(login, code, request.form['_id']))
+                            format(login, code, _id))
         template = "my_bikes_form.html"
 
     result = requests.get(url).json()
     if 'error' in result:
         return result['error']
 
-    return render_template(template, bikes=result)
+    return render_template(template, bikes=result, user=user)
 
 
 @app.route("/catalog", methods=['GET', 'POST'])
